@@ -89,7 +89,8 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `email` varchar(254) NOT NULL,
-  `password` varchar(80) NOT NULL
+  `password` varchar(80) NOT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

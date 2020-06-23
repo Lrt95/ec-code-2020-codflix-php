@@ -12,17 +12,17 @@
 
             <div class="form-group">
               <label for="email">Adresse email</label>
-              <input type="email" name="email" value="" id="email" class="form-control" />
+              <input type="email" name="email" value="" id="email" class="form-control" required/>
             </div>
 
             <div class="form-group">
               <label for="password">Mot de passe</label>
-              <input type="password" name="password" id="password" class="form-control" />
+              <input type="password" name="password" id="password" class="form-control" required/>
             </div>
 
             <div class="form-group">
               <label for="password_confirm">Confirmez votre mot de passe</label>
-              <input type="password" name="password_confirm" id="password_confirm" class="form-control" />
+              <input type="password" name="password_confirm" id="password_confirm" class="form-control" required/>
             </div>
 
             <div class="form-group">
@@ -35,6 +35,20 @@
                 </div>
               </div>
             </div>
+
+              <?php
+              if ( isset($_POST["Valider"]) ) {
+                  $user = new User();
+                  try {
+                      $user->setEmail($_POST["email"]);
+                      $user->setPassword($_POST["password"], $_POST["password_confirm"]);
+                      $user->createUser();
+                  }
+                  catch (Exception $e) {
+                      $error_msg = $e->getMessage();
+                  }
+              }
+              ?>
 
             <span class="error-msg">
               <?= isset( $error_msg ) ? $error_msg : null; ?>
@@ -50,6 +64,7 @@
     </div>
   </div>
 </div>
+
 
 
 <?php $content = ob_get_clean(); ?>
