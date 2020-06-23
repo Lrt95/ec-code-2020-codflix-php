@@ -44,7 +44,7 @@ else:
   $user_id = isset( $_SESSION['user_id'] ) ? $_SESSION['user_id'] : false;
 
   if( $user_id ):
-    mediaPage();
+      mediaPage();
   else:
     homePage();
   endif;

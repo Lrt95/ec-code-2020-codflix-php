@@ -18,8 +18,10 @@
         <a class="item" href="index.php?media=<?= $media['id']; ?>">
             <div class="video">
                 <div>
-                    <iframe allowfullscreen="" frameborder="0"
-                            src="<?= $media['trailer_url']; ?>" ></iframe>
+                    <iframe src=<?= $media['trailer_url']; ?>
+                            frameborder="0"
+                            allow="encrypted-media;"
+                            allowfullscreen></iframe>
                 </div>
             </div>
             <div class="title"><?= $media['title']; ?></div>
