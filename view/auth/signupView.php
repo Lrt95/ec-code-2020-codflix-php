@@ -38,15 +38,7 @@
 
               <?php
               if ( isset($_POST["Valider"]) ) {
-                  $user = new User();
-                  try {
-                      $user->setEmail($_POST["email"]);
-                      $user->setPassword($_POST["password"], $_POST["password_confirm"]);
-                      $user->createUser();
-                  }
-                  catch (Exception $e) {
-                      $error_msg = $e->getMessage();
-                  }
+                  $error_msg = signup();
               }
               ?>
 

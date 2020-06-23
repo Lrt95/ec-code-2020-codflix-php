@@ -18,7 +18,7 @@ class User
             $this->setId(isset($user->id) ? $user->id : null);
             $this->setEmail($user->email);
             $this->setPassword($user->password, isset($user->password_confirm) ? $user->password_confirm : false);
-            $this->setIsActive($user->isActive);
+            $this->setIsActive(isset($user->isActive) ? $user->isActive : null);
         endif;
     }
 
@@ -47,7 +47,7 @@ class User
 
         if ($password_confirm && $password != $password_confirm) {
             throw new Exception('Vos mots de passes sont différents');
-        } else if (strlen($password) === 0 || strlen($password_confirm) === 0) {
+        } else if ((strlen($password) === 0 || strlen($password_confirm) === 0) && $password_confirm) {
             throw new Exception('Vos mots de passes sont vides');
         }
 
@@ -132,7 +132,7 @@ class User
         // Open database connection
         $db = init_db();
 
-        $req = $db->prepare("SELECT * FROM user WHERE id = ?");
+        $req = $db->prepare("SELECT * FROM user WHERE id  = '" . id . "'");
         $req->execute(array($id));
 
         // Close databse connection
@@ -151,8 +151,8 @@ class User
         // Open database connection
         $db = init_db();
 
-        $req = $db->prepare("SELECT * FROM user WHERE email = ?");
-        $req->execute(array($this->getEmail()));
+        $req = $db->prepare("SELECT * FROM user WHERE email = '" . $this->email . "'");
+        $req->execute();
 
         // Close databse connection
         $db = null;
