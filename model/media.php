@@ -138,15 +138,33 @@ class Media {
      * -------- GET SERIE --------
      ***************************/
 
-    public static function serieById( $id ) {
+    public static function serieBySeason($season ) {
 // Open database connection
         $db = init_db();
-        $req = $db->prepare("SELECT * FROM serie WHERE id = " . $id);
+        $req = $db->prepare("SELECT * FROM series WHERE saison = " . $season);
         $req->execute();
 
         // Close database connection
         $db = null;
 
-        return $req->fetch();
+        return $req->fetchAll();
+    }
+
+    /***************************
+     * -------- GET SERIE --------
+     ***************************/
+
+    public static function saisonById( $id ) {
+// Open database connection
+        $db = init_db();
+        $req = $db->prepare("SELECT * FROM series WHERE serie_id = " . $id . " GROUP BY saison");
+        $req->execute();
+
+        // Close database connection
+        $db = null;
+
+        return $req->fetchAll();
     }
 }
+
+
