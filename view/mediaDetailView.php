@@ -50,7 +50,10 @@ if ($media["type"] === "Serie") {
     </div>
 
     <div><?= $name ?></div>
-    <div><?= $type === "Serie" ? $episode["duration"] : $movie["duration"]?></div>
+    <?php $type === "Serie" ? $time = $episode["duration"] : $time =$movie["duration"];
+    $time = $time[0] . $time[1] . "h" . $time[3] . $time[4] . "m" . $time[6] . $time[7] . "s"
+    ?>
+    <div> <?=$time?> </div>
     <div><?= $release_date ?></div>
     <div><?= $summary ?></div>
 </div>
