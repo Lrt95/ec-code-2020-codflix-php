@@ -50,6 +50,7 @@ if ($media["type"] === "Serie") {
     </div>
 
     <div><?= $name ?></div>
+    <div><?= $type === "Serie" ? $episode["duration"] : $movie["duration"]?></div>
     <div><?= $release_date ?></div>
     <div><?= $summary ?></div>
 </div>
