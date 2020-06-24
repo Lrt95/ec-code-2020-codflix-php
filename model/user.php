@@ -132,7 +132,7 @@ class User
         // Open database connection
         $db = init_db();
 
-        $req = $db->prepare("SELECT * FROM user WHERE id  = '" . id . "'");
+        $req = $db->prepare("SELECT * FROM user WHERE id  = '" . $id . "'");
         $req->execute(array($id));
 
         // Close databse connection
