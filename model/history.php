@@ -1,37 +1,37 @@
 <?php
 
-require_once( 'database.php' );
+require_once('database.php');
 
-class History {
+class History
+{
 
-  protected $id;
-  protected $user_id;
-  protected $movie_id;
-  protected $serie_id;
-  protected $start_date;
-  protected $finish_date;
-  protected $watch_duration;
+    protected $id;
+    protected $user_id;
+    protected $movie_id;
+    protected $serie_id;
+    protected $start_date;
+    protected $finish_date;
+    protected $watch_duration;
 
     /**
      * History constructor.
-     * @param null $history
+     * @param $user_id
      */
-    public function __construct($history = null)
+    public function __construct($user_id)
     {
-        if($history === null) {
-            $this->setUserId($history->user_id);
-            $this->setMovieId($history->movie_id);
-            $this->setSerieId($history->serie_id) ;
-            $this->setStartDate($history->start_date);
-            $this->setFinishDate($history->finish_date);
-            $this->setWatchDuration($history->watch_duration);
-        }
+        $this->user_id = $user_id;
+        $this->movie_id = "NULL";
+        $this->serie_id = "NULL";
+        $this->start_date = "NULL";
+        $this->finish_date = "NULL";
+        $this->watch_duration = "NULL";
     }
 
 
-  /***************************
-  * -------- SETTERS ---------
-  ***************************/
+
+    /***************************
+     * -------- SETTERS ---------
+     ***************************/
 
 
     /**
@@ -43,7 +43,6 @@ class History {
     }
 
 
-
     /**
      * @param mixed $movie_id
      */
@@ -51,7 +50,6 @@ class History {
     {
         $this->movie_id = $movie_id;
     }
-
 
 
     /**
@@ -64,23 +62,23 @@ class History {
 
 
     /**
-     * @param mixed $start_date
+     * @throws Exception
      */
-    public function setStartDate($start_date): void
+    public function setStartDate(): void
     {
-        $this->start_date = $start_date;
+        $date = new DateTime();
+        $this->start_date = date_format($date, 'Y-m-d H:i:s');
     }
-
 
 
     /**
-     * @param mixed $finish_date
+     * @throws Exception
      */
-    public function setFinishDate($finish_date): void
+    public function setFinishDate(): void
     {
-        $this->finish_date = $finish_date;
+        $date = new DateTime();
+        $this->finish_date = date_format($date, 'Y-m-d H:i:s');
     }
-
 
 
     /**
@@ -92,9 +90,9 @@ class History {
     }
 
 
-  /***************************
-  * -------- GETTERS ---------
-  ***************************/
+    /***************************
+     * -------- GETTERS ---------
+     ***************************/
 
     /**
      * @return mixed
@@ -169,6 +167,45 @@ class History {
         $db = null;
 
         return $req->fetchAll();
+    }
+
+    /**************************************
+     * ------------ SET HISTORY -----------
+     ***************************************/
+
+    public static function setHistoryByUserId($user_id)
+    {
+
+        // Open database connection
+        $db = init_db();
+
+        $req = $db->prepare("SELECT * FROM history WHERE user_id  = '" . $user_id . "'");
+        $req->execute();
+        // Close databse connection
+        $db = null;
+
+        return $req->fetchAll();
+    }
+
+    /***********************************
+     * ------ INSERT NEW HISTORY -------
+     ************************************/
+
+    public function insertHistory()
+    {
+        // Open database connection
+        $db = init_db();
+        $req = $db->prepare("INSERT INTO history ( user_id, movie_id, serie_id, start_date, 
+                            finish_date, watch_duration ) 
+                            VALUES (" . $this->getUserId() . ", " .
+                            $this->getMovieId() . ", " . $this->getSerieId() . ", "
+                            .$this->getStartDate()  .", " . $this->getFinishDate() .  ", "
+                            . $this->getWatchDuration() . ")");
+        $req->execute();
+        // Close databse connection
+        $db = null;
+
+
     }
 }
 
