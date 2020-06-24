@@ -3,7 +3,7 @@
 require_once( 'model/media.php' );
 
 /***************************
-* ----- LOAD HOME PAGE -----
+* ---- LOAD MEDIA PAGE -----
 ***************************/
 
 function mediaPage() {

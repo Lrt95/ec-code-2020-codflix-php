@@ -151,7 +151,7 @@ class Media {
     }
 
     /***************************
-     * -------- GET SERIE --------
+     * -------- GET SAISON --------
      ***************************/
 
     public static function saisonById( $id ) {
@@ -164,6 +164,38 @@ class Media {
         $db = null;
 
         return $req->fetchAll();
+    }
+
+    /***************************
+     * ------ GET EPISODE ------
+     ***************************/
+
+    public static function getEpisodeUrl( $saison, $episode ) {
+// Open database connection
+        $db = init_db();
+        $req = $db->prepare("SELECT * FROM series WHERE saison = " . $saison . " AND episode=" . $episode );
+        $req->execute();
+
+        // Close database connection
+        $db = null;
+
+        return $req->fetch();
+    }
+
+    /***************************
+     * ------ GET EPISODE ------
+     ***************************/
+
+    public static function getMovie( $movie ) {
+// Open database connection
+        $db = init_db();
+        $req = $db->prepare("SELECT * FROM movies WHERE  movie_id = " . $movie );
+        $req->execute();
+
+        // Close database connection
+        $db = null;
+
+        return $req->fetch();
     }
 }
 
