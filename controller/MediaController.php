@@ -1,6 +1,7 @@
 <?php
 
 require_once( 'model/media.php' );
+require_once( 'model/history.php' );
 
 /***************************
 * ---- LOAD MEDIA PAGE -----

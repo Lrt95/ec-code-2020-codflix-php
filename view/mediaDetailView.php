@@ -43,9 +43,9 @@ if ($media["type"] === "Serie") {
             echo "</Select>";
     } ?></div>
     <div><?php if($type === "Serie"): ?>
-             <iframe src=<?=$episode['url_serie'] . "?autoplay=true"?> frameborder='0' allow='encrypted-media;'allowfullscreen></iframe>
+             <iframe id="player" src=<?=$episode['url_serie'] . "?enablejsapi=1"?> frameborder='0' allow='encrypted-media;'allowfullscreen></iframe>
         <?php else: ?>
-             <iframe src=<?=$movie['url_movie'] . "?autoplay=true"?> frameborder='0' allow='encrypted-media;'allowfullscreen></iframe>
+             <iframe id="player" src=<?=$movie['url_movie'] . "?enablejsapi=1"?> frameborder='0' allow='encrypted-media;'allowfullscreen></iframe>
         <?php endif; ?>
     </div>
 
@@ -57,6 +57,44 @@ if ($media["type"] === "Serie") {
     <div><?= $release_date ?></div>
     <div><?= $summary ?></div>
 </div>
+
+    <script>
+
+        const tag = document.createElement('script');
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        let player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+
+        }
+
+        let done = false;
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING && !done) {
+                done = true;
+                console.log(done);
+            }
+        }
+        function stopVideo() {
+
+        }
+    </script>
+
 
     <script>
         function locationChange(season, id, episode) {
