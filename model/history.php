@@ -205,6 +205,16 @@ class History
         // Close databse connection
         $db = null;
 
+    }
+
+
+    public static function deleteOneElementHistory($id) {
+            // Open database connection
+        $db = init_db();
+        $req = $db->prepare('DELETE FROM history WHERE id = ' . $id);
+        $req->execute();
+        // Close databse connection
+        $db = null;
 
     }
 }
