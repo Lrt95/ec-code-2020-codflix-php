@@ -22,3 +22,18 @@ function signupPage() {
 /***************************
 * ----- SIGNUP FUNCTION -----
 ***************************/
+
+function signup() {
+    $user = new User();
+    $error_msg = "";
+    try {
+        $user->setEmail($_POST["email"]);
+        $user->setPassword($_POST["password"], $_POST["password_confirm"]);
+        $user->createUser();
+    }
+    catch (Exception $e) {
+        $error_msg = $e->getMessage();
+    } finally {
+        return $error_msg;
+    }
+}
