@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  jeu. 25 juin 2020 à 10:57
+-- Généré le :  jeu. 25 juin 2020 à 20:19
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP :  7.4.1
 
@@ -21,8 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `codflix`
 --
-DROP DATABASE IF EXISTS `codflix`;
-CREATE DATABASE `codflix`;
+
+-- --------------------------------------------------------
+
 --
 -- Structure de la table `genre`
 --
@@ -63,13 +64,9 @@ CREATE TABLE `history` (
 --
 
 INSERT INTO `history` (`id`, `user_id`, `movie_id`, `serie_id`, `start_date`, `finish_date`, `watch_duration`) VALUES
-(1, 4, 1, 0, '2020-06-25 10:56:23', NULL, NULL),
-(2, 4, 4, 1, '2020-06-25 10:56:38', NULL, NULL),
-(3, 4, 4, 9, '2020-06-25 10:56:43', NULL, NULL),
-(4, 4, 4, 10, '2020-06-25 10:56:48', NULL, NULL),
-(5, 4, 4, 2, '2020-06-25 10:56:51', NULL, NULL),
-(6, 4, 4, 6, '2020-06-25 10:56:54', NULL, NULL),
-(7, 4, 4, 3, '2020-06-25 10:57:00', NULL, NULL);
+(21, 4, 1, 0, '2020-06-25 20:17:33', NULL, NULL),
+(22, 4, 4, 5, '2020-06-25 20:18:00', NULL, NULL),
+(23, 4, 3, 0, '2020-06-25 20:18:14', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -230,7 +227,7 @@ ALTER TABLE `genre`
 -- AUTO_INCREMENT pour la table `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `media`
@@ -254,7 +251,7 @@ ALTER TABLE `series`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Contraintes pour les tables déchargées

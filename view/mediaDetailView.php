@@ -12,7 +12,7 @@ $getMedia = $_GET['media'];
 function formatDuration($element)
 {
     $time = $element["duration"];
-    $time = $time[0] . $time[1] . "h" . $time[3] . $time[4] . "m" . $time[6] . $time[7] . "s";
+    $time = $time[0] != 0 ? $time[0] . $time[1] . "h" . $time[3] . $time[4] . "m" . $time[6] . $time[7] . "s" : $time[3] . $time[4] . "m" . $time[6] . $time[7] . "s";
     return $time;
 }
 
@@ -155,7 +155,8 @@ if ($media["type"] === "Serie") {
 
     <script>
         function locationChange(season, id, episode) {
-            window.location = "http://localhost:63343/ec-code-2020-codflix-php/index.php?media=" + id + "&saison=" + season + "&episode=" + episode
+
+            window.location = "/ec-code-2020-codflix-php/index.php?media=" + id + "&saison=" + season + "&episode=" + episode
         }
     </script>
 
