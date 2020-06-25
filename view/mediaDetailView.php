@@ -155,7 +155,8 @@ if ($media["type"] === "Serie") {
 
     <script>
         function locationChange(season, id, episode) {
-            window.location = "http://localhost:63343/ec-code-2020-codflix-php/index.php?media=" + id + "&saison=" + season + "&episode=" + episode
+
+            window.location = "/ec-code-2020-codflix-php/index.php?media=" + id + "&saison=" + season + "&episode=" + episode
         }
     </script>
 
