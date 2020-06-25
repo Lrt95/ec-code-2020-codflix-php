@@ -11,21 +11,13 @@ foreach ($types as $type => $value) {
 ?>
 
 <?php ob_start(); ?>
-<script>
-    function researchForm() {
-        //const type = document.forms["researchForm"]["type"].value;
-        console.log("type");
-        if( type == "") {
 
-        }
-    }
-</script>
 
 <div class="container">
-    <form method="get">
+    <form name="researchForm" onsubmit="researchForm()" >
         <div class="row">
             <div class="col">
-                <?php $tools->createSelect("type", $typeTab, "Type"); ?>
+                <?php $tools->createSelect("tri", ["ASC", "DESC"], "Tri"); ?>
             </div>
             <div class="col">
                 <?php $tools->createSelect("type", $typeTab, "Type"); ?>
@@ -83,6 +75,17 @@ foreach ($types as $type => $value) {
     <?php endforeach; ?>
 </div>
 
+<script>
+    function researchForm() {
+        let type = document.forms["researchForm"]["type"].value;
+        alert("The form was submitted");
+        console.log("type");
+        if( type == "") {
+            return false;
+        }
+        return false;
+    }
+</script>
 
 <?php $content = ob_get_clean(); ?>
 
