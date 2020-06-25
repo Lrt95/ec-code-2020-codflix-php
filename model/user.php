@@ -47,7 +47,7 @@ class User
 
         if ($password_confirm && $password != $password_confirm) {
             throw new Exception('Vos mots de passes sont différents');
-        } else if ((strlen($password) === 0 || strlen($password_confirm) === 0)) {
+        } else if ((strlen($password) === 0 || strlen($password_confirm) === 0) && $password_confirm) {
             throw new Exception('Vos mots de passes sont vides');
         } else if (strpos($password, " ") !== false ) {
             throw new Exception('Il y a un espace dans votre mot de passe');

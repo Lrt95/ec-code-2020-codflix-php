@@ -2,7 +2,6 @@
 $type = $media["type"];
 $name = $mediaType["name"];
 $release_date = $media["release_date"];
-$summary = $media["summary"];
 $id = $media["id"];
 $getMedia = $_GET['media'];
 
@@ -26,11 +25,13 @@ if ($media["type"] === "Serie") {
     if (empty($episode)) {
         $episode = Media::getEpisode($getSeason, 1);
     }
+    $summary = $episode["summary"];
     $time = formatDuration($episode);
 } else {
     $movie = Media::getmovie($getMedia);
     $episode["id"] = 0;
     $time = formatDuration($movie);
+    $summary = $media["summary"];
 }
 ?>
 
