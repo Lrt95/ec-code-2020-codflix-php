@@ -47,11 +47,14 @@ class User
 
         if ($password_confirm && $password != $password_confirm) {
             throw new Exception('Vos mots de passes sont différents');
-        } else if ((strlen($password) === 0 || strlen($password_confirm) === 0) && $password_confirm) {
+        } else if ((strlen($password) === 0 || strlen($password_confirm) === 0)) {
             throw new Exception('Vos mots de passes sont vides');
+        } else if (strpos($password, " ") !== false ) {
+            throw new Exception('Il y a un espace dans votre mot de passe');
         }
 
-        $this->password = $password;
+        //je ne met pas de Regex à code du mot de passe 123456 de l'énnoncé (coding@gmail.com)
+        $this->password = hash('sha256' ,$password);
     }
 
     /**
@@ -177,5 +180,6 @@ class User
         Ceci est un mail automatique, Merci de ne pas y répondre.';
 
         mail($destinataire, $sujet, $message, $entete);
+
     }
 }

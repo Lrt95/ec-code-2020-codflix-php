@@ -6,20 +6,21 @@
 
     <h2 class="h1-responsive font-weight-bold text-center my-4">Nous Contacter</h2>
 
-    <p class="text-center w-responsive mx-auto mb-5">Vous avez des questions ? N'hésitez pas à nous contacter directement. Notre équipe vous répondra dans les heures qui suivent pour vous aider.</p>
+    <p class="text-center w-responsive mx-auto mb-5">Vous avez des questions ? N'hésitez pas à nous contacter
+        directement. Notre équipe vous répondra dans les heures qui suivent pour vous aider.</p>
     <div class="row">
         <div class="col-md-9 mb-md-0 mb-5">
-            <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+            <form id="contact-form" name="contact-form" action="mail.php" method="POST" required>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="md-form mb-0">
-                            <input type="text" id="name" name="name" class="form-control">
+                            <input type="text" id="name" name="name" class="form-control" required>
                             <label for="name" class="">Votre Nom</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="md-form mb-0">
-                            <input type="text" id="email" name="email" class="form-control">
+                            <input type="text" id="email" name="email" class="form-control" required>
                             <label for="email" class="">Votre email</label>
                         </div>
                     </div>
@@ -27,7 +28,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="md-form mb-0">
-                            <input type="text" id="subject" name="subject" class="form-control">
+                            <input type="text" id="subject" name="subject" class="form-control" required>
                             <label for="subject" class="">Sujet</label>
                         </div>
                     </div>
@@ -35,16 +36,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="md-form">
-                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                            <textarea type="text" id="message" name="message" rows="2"
+                                      class="form-control md-textarea" required></textarea>
                             <label for="message">Votre message</label>
                         </div>
 
                     </div>
                 </div>
+                <div class="text-center text-md-left">
+                    <input type="submit" name="Envoyer" class="btn btn-block bg-black" />
+                </div>
             </form>
-            <div class="text-center text-md-left">
-                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Envoyer</a>
-            </div>
             <div class="status"></div>
         </div>
         <div class="col-md-3 text-center">
@@ -64,6 +66,30 @@
         </div>
     </div>
 </section>
+
+<?php
+if (isset($_POST["Envoyer"])) {
+    $name = "";
+    $email = "";
+    $message = "";
+    $subject = "";
+
+    if (isset($_POST['name']))
+        $name = $_POST['name'];
+    if (isset($_POST['email']))
+        $email = $_POST['email'];
+    if (isset($_POST['message']))
+        $message = $_POST['message'];
+    if (isset($_POST['subject']))
+        $subject = $_POST['subject'];
+
+    $content = "From: $name  Email: $email  Message: $message";
+    $recipient = "youremail@here.com";
+    $mailheader = "From: $email";
+    mail($recipient, $subject, $content, $mailheader);
+    echo "Email sent!";
+}
+?>
 
 <?php $content = ob_get_clean(); ?>
 
