@@ -53,9 +53,9 @@ if ($media["type"] === "Serie") {
             <br/>
             <div class="input-group mb-3"><?php if ($type === "Serie"): ?>
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="saison">Saison</label>
+                        <label class="input-group-text" for="inputGroupSelect01">Saison</label>
                     </div>
-                    <Select class="custom-select" id="saison" name='saison'
+                    <Select class="custom-select" id="inputGroupSelect01" name='saison'
                             onchange='locationChange(this.value, <?= $id ?>, <?= $getEpisode ?>)'>
                         <?php foreach ($mediaSeasons as $season => $value): ?>
                             <?php if ($value["saison"] === $getSeason): ?>
@@ -66,9 +66,9 @@ if ($media["type"] === "Serie") {
                         <?php endforeach; ?>
                     </Select>
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="episode">Episode</label>
+                        <label class="input-group-text" for="inputGroupSelect01">Episode</label>
                     </div>
-                    <Select class="custom-select" id="episode" name='episode'
+                    <Select class="custom-select" id="inputGroupSelect01" name='episode'
                             onchange='locationChange(<?= $getSeason ?>, <?= $id ?>, this.value)'>
                         <?php foreach ($series as $serie => $value): ?>
                             <?php if ($value["episode"] === $getEpisode): ?>

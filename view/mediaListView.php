@@ -1,50 +1,68 @@
-
 <?php $tools = new Tools();
 $genreTab = [];
 $typeTab = [];
 foreach ($genres as $genre => $value) {
-    array_push($genreTab , $value["name"]);
+    array_push($genreTab, $value["name"]);
 }
 foreach ($types as $type => $value) {
-    array_push($typeTab , $value["type"]);
+    array_push($typeTab, $value["type"]);
 }
 
 ?>
+
 <?php ob_start(); ?>
+<script>
+    function researchForm() {
+        //const type = document.forms["researchForm"]["type"].value;
+        console.log("type");
+        if( type == "") {
+
+        }
+    }
+</script>
 
 <div class="container">
-        <form method="get">
-            <div class="row">
+    <form method="get">
+        <div class="row">
             <div class="col">
-                <?php $tools->createSelect("type", $typeTab, "Type");?>
+                <?php $tools->createSelect("type", $typeTab, "Type"); ?>
             </div>
             <div class="col">
-                <?php $tools->createSelect("genre", $genreTab , "Genre");?>
+                <?php $tools->createSelect("type", $typeTab, "Type"); ?>
+            </div>
+            <div class="col">
+                <?php $tools->createSelect("genre", $genreTab, "Genre"); ?>
             </div>
             <div class="col">
                 <?php $tools->createInput("date",
-                    "date" ,
+                    "date",
                     "date",
                     $search,
                     "form-control",
-                    "" );?>
+                    ""); ?>
             </div>
             <div class="col">
                 <div class="form-group has-btn">
                     <?php $tools->createInput("search",
-                        "search" ,
+                        "search",
                         "title",
                         $search,
                         "form-control",
-                        "Rechercher un film ou une série" );?>
+                        "Rechercher un film ou une série"); ?>
                 </div>
             </div>
             <div class="col">
-                <?php $tools->createButton("submit", "btn btn-block bg-red text-white", "Valider");?>
+                <?php $tools->createInput("submit",
+                    "submit",
+                    "submit",
+                    "Valider",
+                    "btn btn-block bg-red text-white",
+                    ""); ?>
             </div>
-            </div>
-        </form>
+        </div>
+    </form>
 </div>
+
 
 
 <div class="media-list">
@@ -65,11 +83,6 @@ foreach ($types as $type => $value) {
     <?php endforeach; ?>
 </div>
 
-<script>
-    function locationChange(season, id, episode) {
-        window.location = "/ec-code-2020-codflix-php/index.php?media="+id+"&saison="+season+"&episode=" + episode
-    }
-</script>
 
 <?php $content = ob_get_clean(); ?>
 
