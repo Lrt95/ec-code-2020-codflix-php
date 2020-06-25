@@ -126,7 +126,7 @@ class History
         // Open database connection
         $db = init_db();
 
-        $req = $db->prepare("SELECT * FROM history WHERE user_id  = '" . $user_id . "'");
+        $req = $db->prepare("SELECT * FROM history WHERE user_id  = '" . $user_id . "'" . "ORDER BY `start_date` DESC"  );
         $req->execute();
         // Close databse connection
         $db = null;
@@ -191,16 +191,6 @@ class History
         // Close databse connection
         $db = null;
 
-    }
-
-    public function __toString()
-    {
-        return "INSERT INTO history ( user_id, movie_id, serie_id, start_date, 
-                            finish_date, watch_duration ) 
-                            VALUES (" . $this->getUserId() . ", " .
-                            $this->getMovieId() . ", " . $this->getSerieId() . ", "
-                            .$this->getStartDate()  .", " . $this->getFinishDate() .  ", "
-                            . $this->getWatchDuration() . ")";
     }
 }
 

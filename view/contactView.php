@@ -60,7 +60,7 @@
                 </li>
 
                 <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                    <p>infoitescia@itescia.fr</p>
+                    <p>contact@codflix.com</p>
                 </li>
             </ul>
         </div>
@@ -84,7 +84,7 @@ if (isset($_POST["Envoyer"])) {
         $subject = $_POST['subject'];
 
     $content = "From: $name  Email: $email  Message: $message";
-    $recipient = "youremail@here.com";
+    $recipient = "contact@codflix.com";
     $mailheader = "From: $email";
     mail($recipient, $subject, $content, $mailheader);
     echo "Email sent!";

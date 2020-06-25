@@ -166,6 +166,7 @@ class User
     private function sendActivationMail()
     {
 
+
         $destinataire = $this->email;
         $sujet = "Activer votre compte";
         $entete = "From: inscription@codflix.com";
@@ -180,6 +181,5 @@ class User
         Ceci est un mail automatique, Merci de ne pas y répondre.';
 
         mail($destinataire, $sujet, $message, $entete);
-
     }
 }
