@@ -93,8 +93,8 @@ class Media {
     // Open database connection
     $db   = init_db();
 
-    $req  = $db->prepare( "SELECT * FROM media WHERE title = ? ORDER BY release_date DESC" );
-    $req->execute( array( '%' . $title . '%' ));
+    $req  = $db->prepare( "SELECT * FROM media WHERE title LIKE ".'"%' . $title . '%"' . " ORDER BY release_date DESC" );
+    $req->execute();
 
     // Close databse connection
     $db   = null;
@@ -102,5 +102,113 @@ class Media {
     return $req->fetchAll();
 
   }
+    /***************************
+     * -------- GET FILM --------
+     ***************************/
 
+    public static function mediaById( $id ) {
+// Open database connection
+        $db = init_db();
+        $req = $db->prepare("SELECT * FROM media WHERE id = " . $id);
+        $req->execute();
+
+        // Close database connection
+        $db = null;
+
+        return $req->fetch();
+    }
+
+    /***************************
+     * ---- GET TYPE FILM ------
+     ***************************/
+    public static function mediaTypeById($id)
+    {
+        // Open database connection
+        $db = init_db();
+        $req = $db->prepare("SELECT * FROM genre WHERE id = " . $id);
+        $req->execute();
+
+        // Close database connection
+        $db = null;
+
+        return $req->fetch();
+    }
+
+    /***************************
+     * -------- GET SERIE --------
+     ***************************/
+
+    public static function serieBySeason($season) {
+// Open database connection
+        $db = init_db();
+        $req = $db->prepare("SELECT * FROM series WHERE saison = " . $season);
+        $req->execute();
+
+        // Close database connection
+        $db = null;
+
+        return $req->fetchAll();
+    }
+
+    /***************************
+     * -------- GET SAISON --------
+     ***************************/
+
+    public static function saisonById( $id ) {
+// Open database connection
+        $db = init_db();
+        $req = $db->prepare("SELECT * FROM series WHERE serie_id = " . $id . " GROUP BY saison");
+        $req->execute();
+
+        // Close database connection
+        $db = null;
+
+        return $req->fetchAll();
+    }
+
+    /***************************
+     * ------ GET EPISODE ------
+     ***************************/
+
+    public static function getEpisode($saison, $episode ) {
+// Open database connection
+        $db = init_db();
+        $req = $db->prepare("SELECT * FROM series WHERE saison = " . $saison . " AND episode=" . $episode );
+        $req->execute();
+
+        // Close database connection
+        $db = null;
+
+        return $req->fetch();
+    }
+
+    /***************************
+     * ------ GET EPISODE ------
+     ***************************/
+
+    public static function getMovie( $movie ) {
+// Open database connection
+        $db = init_db();
+        $req = $db->prepare("SELECT * FROM movies WHERE  movie_id = " . $movie );
+        $req->execute();
+
+        // Close database connection
+        $db = null;
+
+        return $req->fetch();
+    }
+
+    public static function getEpisodeById( $id ) {
+// Open database connection
+        $db = init_db();
+        $req = $db->prepare("SELECT * FROM series WHERE id = " . $id );
+        $req->execute();
+
+        // Close database connection
+        $db = null;
+
+        return $req->fetch();
+    }
 }
+
+

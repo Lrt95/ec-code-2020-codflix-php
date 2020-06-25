@@ -14,19 +14,30 @@
 </div>
 
 <div class="media-list">
-    <?php foreach( $medias as $media ): ?>
-        <a class="item" href="index.php?media=<?= $media['id']; ?>">
+    <?php foreach ($medias as $media): ?>
+        <a class="item" href="index.php?media=<?= $media['id']; ?>
+                                              <?= $media['type'] === 'Serie' ? ' &saison=1 &episode=1' : null ?>">
             <div class="video">
                 <div>
-                    <iframe allowfullscreen="" frameborder="0"
-                            src="<?= $media['trailer_url']; ?>" ></iframe>
+                    <iframe src=<?= $media['trailer_url']; ?>
+                            frameborder="0"
+                            allow="encrypted-media;"
+                            allowfullscreen></iframe>
                 </div>
             </div>
             <div class="title"><?= $media['title']; ?></div>
+            <div>
+                <div class="summary">Date de sortie : <?= $media['release_date']; ?></div>
+            </div>
         </a>
     <?php endforeach; ?>
 </div>
 
+<script>
+    function locationChange(season, id, episode) {
+        window.location = "/ec-code-2020-codflix-php/index.php?media="+id+"&saison="+season+"&episode=" + episode
+    }
+</script>
 
 <?php $content = ob_get_clean(); ?>
 

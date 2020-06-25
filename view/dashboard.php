@@ -9,6 +9,7 @@
 
     <link href="public/css/partials/partials.css" rel="stylesheet" />
     <link href="public/css/layout/layout.css" rel="stylesheet" />
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   </head>
 
 
@@ -19,7 +20,8 @@
         <div class="sidebar-menu">
           <ul>
             <li class="active"><a href="index.php?action=media">Médias</a></li>
-            <li><a href="#">Nous contacter</a></li>
+            <li><a href="index.php?action=history">Historique</a></li>
+            <li><a href="index.php?action=contact">Nous contacter</a></li>
             <li><a href="index.php?action=logout">Me déconnecter</a></li>
           </ul>
         </div>

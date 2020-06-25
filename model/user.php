@@ -49,9 +49,12 @@ class User
             throw new Exception('Vos mots de passes sont différents');
         } else if ((strlen($password) === 0 || strlen($password_confirm) === 0) && $password_confirm) {
             throw new Exception('Vos mots de passes sont vides');
+        } else if (strpos($password, " ") !== false ) {
+            throw new Exception('Il y a un espace dans votre mot de passe');
         }
 
-        $this->password = $password;
+        //je ne met pas de Regex à code du mot de passe 123456 de l'énnoncé (coding@gmail.com)
+        $this->password = hash('sha256' ,$password);
     }
 
     /**
@@ -132,7 +135,7 @@ class User
         // Open database connection
         $db = init_db();
 
-        $req = $db->prepare("SELECT * FROM user WHERE id  = '" . id . "'");
+        $req = $db->prepare("SELECT * FROM user WHERE id  = '" . $id . "'");
         $req->execute(array($id));
 
         // Close databse connection
@@ -162,6 +165,7 @@ class User
 
     private function sendActivationMail()
     {
+
 
         $destinataire = $this->email;
         $sujet = "Activer votre compte";
