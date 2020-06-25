@@ -12,8 +12,8 @@
     <thead class="thead-dark">
     <tr>
         <th scope="col"> Film / Série </th>
-        <th scope="col"> Episode </th>
         <th scope="col"> Saison </th>
+        <th scope="col"> Episode </th>
     </tr>
     </thead>
     <tbody>
@@ -31,8 +31,8 @@
                          alt="Responsive image"
                          src="asset/image/baseline_clear_white_18dp.png"
                     ></a>      <?= $media['title']; ?></td>
-            <td><?= $episode['episode'] ?></td>
             <td><?= $episode['saison'] ?></td>
+            <td><?= $episode['episode'] ?></td>
         </tr>
     <?php } ?>
     </tbody>
