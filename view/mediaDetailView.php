@@ -2,21 +2,36 @@
 $type = $media["type"];
 $name = $mediaType["name"];
 $release_date = $media["release_date"];
-$summary = $media["summary"];
 $id = $media["id"];
+$getMedia = $_GET['media'];
+
+/**
+ * @param $element
+ * @return mixed|string
+ */
+function formatDuration($element)
+{
+    $time = $element["duration"];
+    $time = $time[0] . $time[1] . "h" . $time[3] . $time[4] . "m" . $time[6] . $time[7] . "s";
+    return $time;
+}
+
 if ($media["type"] === "Serie") {
     $getSeason = $_GET['saison'];
     $getEpisode = $_GET['episode'];
-    $mediaSeasons = Media::saisonById($_GET['media']);
-    $series = Media::serieBySeason($_GET['saison']);
-    $episode = Media::getEpisodeUrl($_GET['saison'], $_GET['episode']);
-    $time = $episode["duration"];
-    $time = $time[0] . $time[1] . "h" . $time[3] . $time[4] . "m" . $time[6] . $time[7] . "s";
+    $mediaSeasons = Media::saisonById($getMedia);
+    $series = Media::serieBySeason($getSeason);
+    $episode = Media::getEpisode($getSeason, $getEpisode);
+    if (empty($episode)) {
+        $episode = Media::getEpisode($getSeason, 1);
+    }
+    $summary = $episode["summary"];
+    $time = formatDuration($episode);
 } else {
-    $movie = Media::getmovie($_GET['media']);
+    $movie = Media::getmovie($getMedia);
     $episode["id"] = 0;
-    $time = $movie["duration"];
-    $time = $time[0] . $time[1] . "h" . $time[3] . $time[4] . "m" . $time[6] . $time[7] . "s";
+    $time = formatDuration($movie);
+    $summary = $media["summary"];
 }
 ?>
 
@@ -25,6 +40,9 @@ if ($media["type"] === "Serie") {
     <div class="card mb-3 text-white bg-dark mb-3">
         <div class="card-body">
             <h1 class="display-1"><?= $media['title'] ?></h1>
+            <?php if ($type === "Serie"): ?>
+            <h4 class="display-4">Saison <?= $episode['saison'] ?> - Episode <?= $episode["episode"] ?></h4>
+            <?php endif; ?>
             <span class="badge badge-pill badge-secondary">Genre : <?= $name ?></span>
             <span class="badge badge-pill badge-secondary">Durée : <?= $time ?> </span>
             <span class="badge badge-pill badge-secondary">Date de sortie : <?= $release_date ?></span>

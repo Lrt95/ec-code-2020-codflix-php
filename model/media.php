@@ -138,7 +138,7 @@ class Media {
      * -------- GET SERIE --------
      ***************************/
 
-    public static function serieBySeason($season ) {
+    public static function serieBySeason($season) {
 // Open database connection
         $db = init_db();
         $req = $db->prepare("SELECT * FROM series WHERE saison = " . $season);
@@ -170,7 +170,7 @@ class Media {
      * ------ GET EPISODE ------
      ***************************/
 
-    public static function getEpisodeUrl( $saison, $episode ) {
+    public static function getEpisode($saison, $episode ) {
 // Open database connection
         $db = init_db();
         $req = $db->prepare("SELECT * FROM series WHERE saison = " . $saison . " AND episode=" . $episode );
