@@ -197,6 +197,18 @@ class Media {
 
         return $req->fetch();
     }
+
+    public static function getEpisodeById( $id ) {
+// Open database connection
+        $db = init_db();
+        $req = $db->prepare("SELECT * FROM series WHERE id = " . $id );
+        $req->execute();
+
+        // Close database connection
+        $db = null;
+
+        return $req->fetch();
+    }
 }
 
 
