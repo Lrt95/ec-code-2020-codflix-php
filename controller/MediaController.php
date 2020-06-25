@@ -10,7 +10,6 @@ require_once( 'model/history.php' );
 function mediaPage() {
 
     if (isset($_GET['media'])) {
-        $histories = new History($_SESSION["user_id"]);
         $media = Media::mediaById($_GET['media']);
         $mediaType = Media::mediaTypeById($media["genre_id"]);
         require('view/mediaDetailView.php');

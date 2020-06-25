@@ -5,89 +5,46 @@ require_once('database.php');
 class History
 {
 
-    protected $id;
-    protected $user_id;
-    protected $movie_id;
-    protected $serie_id;
-    protected $start_date;
-    protected $finish_date;
-    protected $watch_duration;
+    private $id;
+    private $user_id;
+    private $movie_id;
+    private $serie_id;
+    private $start_date;
+    private $finish_date;
+    private $watch_duration;
+
+    private static $_instance = null;
 
     /**
      * History constructor.
      * @param $user_id
+     * @param $movie_id
+     * @param $serie_id
+     * @param $start_date
+     * @param $finish_date
+     * @param $watch_duration
      */
-    public function __construct($user_id)
+    public function __construct($user_id, $movie_id, $serie_id, $start_date, $finish_date, $watch_duration)
     {
         $this->user_id = $user_id;
-        $this->movie_id = "NULL";
-        $this->serie_id = "NULL";
-        $this->start_date = "NULL";
-        $this->finish_date = "NULL";
-        $this->watch_duration = "NULL";
-    }
-
-
-
-    /***************************
-     * -------- SETTERS ---------
-     ***************************/
-
-
-    /**
-     * @param mixed $user_id
-     */
-    public function setUserId($user_id): void
-    {
-        $this->user_id = $user_id;
-    }
-
-
-    /**
-     * @param mixed $movie_id
-     */
-    public function setMovieId($movie_id): void
-    {
         $this->movie_id = $movie_id;
-    }
-
-
-    /**
-     * @param mixed $serie_id
-     */
-    public function setSerieId($serie_id): void
-    {
         $this->serie_id = $serie_id;
-    }
-
-
-    /**
-     * @throws Exception
-     */
-    public function setStartDate(): void
-    {
-        $date = new DateTime();
-        $this->start_date = date_format($date, 'Y-m-d H:i:s');
-    }
-
-
-    /**
-     * @throws Exception
-     */
-    public function setFinishDate(): void
-    {
-        $date = new DateTime();
-        $this->finish_date = date_format($date, 'Y-m-d H:i:s');
-    }
-
-
-    /**
-     * @param mixed $watch_duration
-     */
-    public function setWatchDuration($watch_duration): void
-    {
+        $this->start_date = $start_date === "false" ? "NULL" : $start_date;
+        $this->finish_date = $finish_date === "false" ? "NULL" : $finish_date;
         $this->watch_duration = $watch_duration;
     }
+
+    public static function getInstance($user_id, $movie_id, $serie_id, $start_date, $finish_date, $watch_duration) {
+
+        if(is_null(self::$_instance)) {
+            self::$_instance = new History($user_id, $movie_id, $serie_id, $start_date, $finish_date, $watch_duration);
+        }
+
+        return self::$_instance;
+    }
+
+
+
 
 
     /***************************
@@ -131,7 +88,11 @@ class History
      */
     public function getStartDate()
     {
-        return $this->start_date;
+        if ($this->start_date === "NULL") {
+            return $this->start_date;
+        } else {
+            return '"' .  $this->start_date . '"';
+        }
     }
 
     /**
@@ -139,7 +100,11 @@ class History
      */
     public function getFinishDate()
     {
-        return $this->finish_date;
+        if ($this->finish_date === "NULL") {
+            return $this->finish_date;
+        } else {
+            return '"' .  $this->finish_date . '"';
+        }
     }
 
     /**
@@ -216,6 +181,26 @@ class History
         // Close databse connection
         $db = null;
 
+    }
+
+    public static function deleteAllElementHistory() {
+        // Open database connection
+        $db = init_db();
+        $req = $db->prepare('DELETE FROM history');
+        $req->execute();
+        // Close databse connection
+        $db = null;
+
+    }
+
+    public function __toString()
+    {
+        return "INSERT INTO history ( user_id, movie_id, serie_id, start_date, 
+                            finish_date, watch_duration ) 
+                            VALUES (" . $this->getUserId() . ", " .
+                            $this->getMovieId() . ", " . $this->getSerieId() . ", "
+                            .$this->getStartDate()  .", " . $this->getFinishDate() .  ", "
+                            . $this->getWatchDuration() . ")";
     }
 }
 

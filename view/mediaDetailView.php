@@ -10,15 +10,14 @@ if ($media["type"] === "Serie") {
     $mediaSeasons = Media::saisonById($_GET['media']);
     $series = Media::serieBySeason($_GET['saison']);
     $episode = Media::getEpisodeUrl($_GET['saison'], $_GET['episode']);
-    $histories->setSerieId($episode['id']);
-    $histories->setMovieId($episode['serie_id']);
     $time = $episode["duration"];
+    $time = $time[0] . $time[1] . "h" . $time[3] . $time[4] . "m" . $time[6] . $time[7] . "s";
 } else {
     $movie = Media::getmovie($_GET['media']);
-    $histories->setMovieId($movie['movie_id']);
+    $episode["id"] = 0;
     $time = $movie["duration"];
+    $time = $time[0] . $time[1] . "h" . $time[3] . $time[4] . "m" . $time[6] . $time[7] . "s";
 }
-$histories->insertHistory()
 ?>
 
 
@@ -107,14 +106,27 @@ $histories->insertHistory()
 
         }
 
+        function dateString() {
+            const minutesInHour = 60;
+            const offset = new Date().getTimezoneOffset() / minutesInHour;
+            const dateStart = new Date();
+            const dateStartWithOffset = new Date(dateStart.setHours(dateStart.getHours() - offset)).toISOString();
+            return dateStartWithOffset.substring(0, 10) + " " + dateStartWithOffset.substring(11, 19);
+        }
+
         function onPlayerStateChange(event) {
             if (event.data == YT.PlayerState.PLAYING && !done) {
                 done = true;
-                console.log(done);
+                console.log("PLAYING");
+                const startDate = dateString();
+                addElementHistory(<?= $media["id"];?> , <?= $episode["id"];?>, startDate, false);
             } else if (event.data == YT.PlayerState.PAUSED) {
                 console.log("PAUSED")
+                const finishDate = dateString();
+//                addElementHistory(<?= $media["id"];?> , <?= $episode["id"];?>, false, finishDate);
             } else if (event.data == YT.PlayerState.ENDED) {
                 console.log("ENDED")
+//                addElementHistory(<?= $media["id"];?> , <?= $episode["id"];?>, false, true);
             }
         }
 
@@ -126,6 +138,25 @@ $histories->insertHistory()
     <script>
         function locationChange(season, id, episode) {
             window.location = "http://localhost:63343/ec-code-2020-codflix-php/index.php?media=" + id + "&saison=" + season + "&episode=" + episode
+        }
+    </script>
+
+    <script>
+        function addElementHistory(movie_id, serie_id, start_date, finish_date) {
+            $.ajax({
+                type: "POST",
+                url: "./ajax/addElementHistory.php",
+                cache: false,
+                data: {
+                    'movie_id': movie_id,
+                    'serie_id': serie_id,
+                    'start_date': start_date,
+                    'finish_date': finish_date
+                        },
+                success: function (response) {
+                    console.log(response);
+                }
+            });
         }
     </script>
 

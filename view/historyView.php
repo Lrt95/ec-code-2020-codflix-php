@@ -1,6 +1,13 @@
 <?php ob_start(); ?>
 
-
+<a type="button"
+   class="btn btn-danger"
+   onclick="onDeleteAllElement()">
+    <img class="img-fluid"
+         alt="Responsive image"
+         src="asset/image/baseline_clear_white_18dp.png"
+    ></a>
+<span>Supprimer tout</span>
 <table class="table">
     <thead class="thead-dark">
     <tr>
@@ -19,7 +26,7 @@
         <tr>
             <td><a type="button"
                    class="btn btn-danger"
-                   onclick="handleDeleteOneEpisode(<?= $hystory["id"]?>)">
+                   onclick="onDeleteOneElement(<?= $hystory["id"]?>)">
                     <img class="img-fluid"
                          alt="Responsive image"
                          src="asset/image/baseline_clear_white_18dp.png"
@@ -32,15 +39,27 @@
 </table>
 
 <script>
-    function handleDeleteOneEpisode(target) {
-        console.log(target);
+    function onDeleteAllElement() {
+        $.ajax({
+            type: "POST",
+            url: "./ajax/deleteAllElementHistory.php",
+            cache: false,
+            success: function (response) {
+                console.log(response);
+                window.location.reload();
+            }
+        });
+    }
+
+    function onDeleteOneElement(target) {
         $.ajax({
             type: "POST",
             url: "./ajax/deleteOneElementHistory.php",
             cache: false,
-            data: {'target': target.value},
+            data: {'target': target},
             success: function (response) {
-                console.log(response)
+                console.log(response);
+                window.location.reload();
             }
         });
     }

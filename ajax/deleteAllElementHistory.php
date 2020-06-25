@@ -2,7 +2,7 @@
 session_start();
 require_once( '../model/history.php' );
 
-function deleteOneElementHistory()
+function deleteAllElementHistory()
 {
 
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
@@ -14,8 +14,8 @@ function deleteOneElementHistory()
             return 'Erreur serveur';
         }
         $id = $_POST['target'];
-        $historyMedia = History::deleteOneElementHistory($id);
+        $historyMedia = History::deleteAllElementHistory();
     }
 }
 
-echo deleteOneElementHistory();
+echo deleteAllElementHistory();
