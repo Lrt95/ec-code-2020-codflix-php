@@ -102,6 +102,26 @@ class Media {
     return $req->fetchAll();
 
   }
+
+    public static function filterMediasWithJoinAndOrder( $title, $filter, $order ) {
+
+        // Open database connection
+        $db   = init_db();
+        $req  = $db->prepare( 'SELECT media.id , genre_id , title , type, release_date, trailer_url, genre.name FROM media 
+                                        LEFT JOIN genre 
+                                        ON genre.id = media.genre_id
+                                        WHERE title LIKE'. '%' . $title . '%' .
+                                        'ORDER BY' . $filter . ' ' . $order );
+        $req->execute();
+        // Close databse connection
+        $db   = null;
+
+        return $req->fetchAll();
+
+    }
+
+
+//SELECT media.id , genre_id , type, release_date, trailer_url, genre.name FROM media LEFT JOIN genre ON genre.id = media.genre_id ORDER BY genre.name DESC
     /***************************
      * -------- GET FILM --------
      ***************************/

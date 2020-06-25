@@ -181,5 +181,7 @@ class User
         Ceci est un mail automatique, Merci de ne pas y répondre.';
 
         mail($destinataire, $sujet, $message, $entete);
+
+        echo mail($destinataire, $sujet, $message, $entete);
     }
 }

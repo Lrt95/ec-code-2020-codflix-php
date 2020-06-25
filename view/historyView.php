@@ -32,7 +32,7 @@
                          alt="Responsive image"
                          src="asset/image/baseline_clear_white_18dp.png"
                     ></a>      <?= $media['title']; ?></td>
-            <td><?= $hystory['start_date'] ?></td>
+            <td class="align-items-center"><?= $hystory['start_date'] ?></td>
             <td><?= $episode['saison'] ?></td>
             <td><?= $episode['episode'] ?></td>
         </tr>

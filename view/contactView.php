@@ -10,7 +10,7 @@
         directement. Notre équipe vous répondra dans les heures qui suivent pour vous aider.</p>
     <div class="row">
         <div class="col-md-9 mb-md-0 mb-5">
-            <form id="contact-form" name="contact-form" action="mail.php" method="POST" required>
+            <form id="contact-form" name="contact-form" method="POST" required>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="md-form mb-0">

@@ -1,6 +1,7 @@
 <?php ob_start(); ?>
 
 <div class="row">
+
     <div class="col-md-4 offset-md-8">
         <form method="get">
             <div class="form-group has-btn">
@@ -26,9 +27,7 @@
                 </div>
             </div>
             <div class="title"><?= $media['title']; ?></div>
-            <div>
-                <div class="summary">Date de sortie : <?= $media['release_date']; ?></div>
-            </div>
+            <div class="title">Date de sortie : <?= $media['release_date']; ?></div>
         </a>
     <?php endforeach; ?>
 </div>
