@@ -118,7 +118,10 @@ class History
 
     /**************************************
      * ------------ GET HISTORY -----------
-     ***************************************/
+     **************************************
+     * @param $user_id
+     * @return array
+     */
 
     public static function getHistoryByUserId($user_id)
     {
@@ -136,7 +139,10 @@ class History
 
     /**************************************
      * ------------ SET HISTORY -----------
-     ***************************************/
+     **************************************
+     * @param $user_id
+     * @return array
+     */
 
     public static function setHistoryByUserId($user_id)
     {
@@ -173,6 +179,9 @@ class History
     }
 
 
+    /** Delete One Element on table history
+     * @param $id
+     */
     public static function deleteOneElementHistory($id) {
             // Open database connection
         $db = init_db();
@@ -183,6 +192,9 @@ class History
 
     }
 
+    /** Delete All Element table history
+     *
+     */
     public static function deleteAllElementHistory() {
         // Open database connection
         $db = init_db();
